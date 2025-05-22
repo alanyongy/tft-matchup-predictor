@@ -1,1 +1,1 @@
-# tft-matchup-predictor
+This was a rapid solo prototype with some copy-pasting and hardcoded logic. The source is included for completeness but is not polished or optimized. For a deeper understanding, please refer to the project writeup and overview.
