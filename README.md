@@ -79,7 +79,7 @@ AHK lacks built-in OCR. So I made one myself:
 > This is now the common name attributed to this player.
 >
 > We now need to search for the next anchor image, corresponding to the next player in the sidebar.  
-> The search area for this anchor image is restricted to the right edge of the screen (as before), but now starting below where the last anchor was found.  
+> The search area will be the right edge of the screen (as before), but now only starting below where the last anchor was found.  
 > ![](Writeup/AnchorSearchArea.png)
 >
 > Next: Repeat from Step 2, until all players in the lobby have been accounted for.
