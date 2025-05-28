@@ -1,6 +1,6 @@
 # 📊 TFT Matchup Predictor (2021)
 ![](Writeup/ScriptOverlay.png)
-A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom OCR system. Used personally in high-ranked matches until Riot implemented the same feature in-game.
+A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system. Used personally in high-ranked matches until Riot implemented the same feature in-game.
 
 ---
 
