@@ -25,7 +25,7 @@ Having accurate matchup info enables the player to optimally position units for 
 
 AHK lacks built-in OCR. So I made one myself:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Uses `ImageSearch` to detect characters within specific screen regions, making use of UI anchors to minimize the search area. 
+- Uses AHK's `ImageSearch` to detect character images within specific screen regions, making use of UI anchors to minimize the search area. 
 - Reconstructs strings by parsing image matches, then uses them to match the current opponent to their listing in the sidebar.
 ---
 
