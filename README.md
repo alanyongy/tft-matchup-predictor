@@ -1,4 +1,4 @@
-## 📊 TFT Matchup Predictor (2021)
+# 📊 TFT Matchup Predictor (2021)
 ![](Writeup/ScriptOverlay.png)
 A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a fully custom-built OCR system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
 
@@ -39,16 +39,15 @@ Once opponents were identified:
 - Overlay indicators were drawn over their icons using AHK GUI elements, updating automatically with new information.
 
 #### 📌 Screen Calibration
-- Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
+Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
----
 
-### 📚 Technical Deep Dive:
 
-#### Reading the Player Listing Sidebar 
+## 📚 Technical Deep Dive
 
-Used to generate the initial list of players, as well as positioning the overlay to indicate possible opponents in the next round.
-> 
+###  Reading the Player Listing Sidebar
+
+*Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
 > ## Step 1: Locating Anchor Image
 > Search the right-edge of the screen for the following image:
 > 
@@ -82,10 +81,13 @@ Used to generate the initial list of players, as well as positioning the overlay
 > We can now search for the next anchor image, which corresponds to the next player in the sidebar.
 >
 > The search area for this anchor image is now restricted to the right edge of the screen, below where the last anchor was found.
+> 
 > ![](Writeup/AnchorSearchArea.png)
 >
+> Next: Repeat from Step 2, until all players in the lobby have been accounted for.
+>
 > ## Final Result
-> Certain letters are ignored, as they are unable to be accurately detected and differentiated. For example, `n/h`, `I/1/l`, etc.
+> Certain letters are ignored, as they are difficult to accurately detect and differentiate: `n/h`, `I/1/l`, etc.
 >
 > Consecutive duplicate letters are also discarded, in order to simplify the shifting of the search area.
 >
