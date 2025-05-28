@@ -5,7 +5,7 @@ A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tacti
 ---
 
 ### 🔧 Background
-**What it does:** Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset, overlaying valid opponents each round. 
+Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset, overlaying valid opponents each round. 
 
 **Why it matters:** Accurately predicting matchups manually is theoretically possible, but difficult and impractical during gameplay. 
 Having accurate matchup info enables optimal unit positioning and strategies that exploit battle dynamics, offering a major edge in high-level play. 
@@ -20,28 +20,33 @@ Having accurate matchup info enables optimal unit positioning and strategies tha
 
 &nbsp;
 # 🧠 Implementation Overview
-#### 🖼️ Custom OCR System
+🖼️ **Custom OCR System**
+
 AHK lacks built-in OCR. This was solved by:
-- Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Used `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
-- Reconstructed strings by parsing image matches, which were used to match the current opponent to the player to their listing in the sidebar.
+- Manually creating a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
+- Useing `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
+- Reconstructing strings by parsing image matches, then using them to match the current opponent to the player to their listing in the sidebar.
 ---
-#### 🎯 Matchup Prediction Logic
+
+🎯 **Matchup Prediction Logic**
 - Implemented the internal TFT matchmaking rules manually.
-- Accounted for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
-- Tracked previous rounds to exclude recent opponents and used that data to compute eligible future opponents.
+- Account for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
+- Track previous rounds to exclude recent opponents and use that data to compute eligible future opponents.
 ---
-#### 💻 Overlay Rendering
+
+💻 **Overlay Rendering**
 
 Once opponents are identified:
 - The tool searches the sidebar using OCR to locate where each viable opponent was listed.
-- Overlay indicators were drawn over their icons using AHK GUI elements, updating automatically with new information.
+- Overlay indicators are drawn over their icons using AHK GUI elements, updating automatically with new information.
 ---
-#### 📌 Screen Calibration
-Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
+
+📌 **Screen Calibration**
+
+Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
-# 📚 Technical Writeup (How it Works)
+## 📚 Technical Writeup (How it Works)
 
 ### 1. Reading the Player List
 
@@ -148,9 +153,8 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > ![](Writeup/PlayerListWithDead.png)
 > </details>
 
----
-
-### 📈 Results & Impact
+&nbsp;
+## 📈 Results & Impact
 
 - Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
 - Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
@@ -162,31 +166,31 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 
 *Possible Opponents: "MrÉ", "Get Caryed", "MIGGY"*
 
----
-
-### 🧹 Caveats
-🔍 **Static Image Detection**  
-  Uses fixed image references for anchors and OCR — any visual UI change can break functionality.
+&nbsp;
+## 🧹 Caveats
+🖼 **Static Image Detection**  
+Uses fixed image references for anchors and OCR — any visual UI change can break functionality.
 
 🌐 **Limited Character Support**  
-  Only detects A–Z, a–z, and 0–9. Players with identical names (except for unsupported characters) may be indistinguishable.
+Only detects A–Z, a–z, and 0–9. Players with identical names (except for unsupported characters) may be indistinguishable.
 
-🧓 **Legacy Codebase**  
-  Written early in my programming journey. While the logic is solid, the code lacks polish. Still valuable for:
+🐣 **Legacy Codebase**  
+Written early in my programming journey. While the logic is solid, the code lacks polish. Still valuable for:
   - Reverse engineering and automation skills
   - End-user perspective UI parsing without APIs
   - Real-world impact in a competitive environment
 
----
+&nbsp;
+## 🧠 Lessons Learned
+⌚ **Designing for Accuracy and Speed**  
+Real-time performance required optimizing OCR tolerances and implementing techniques to improve search efficiency to match fast-paced gameplay.
 
-### 🧠 Lessons Learned
-⚙️ **Designing for Accuracy and Speed**  
-  Real-time performance required optimizing OCR tolerances and search efficiency to match fast-paced gameplay.
-
-🧭 **UI as a Data Source**  
-  With no telemetry or API access, the entire system was built from observed visuals — teaching me to extract state from pixels and simulate internal game logic.
+🔍 **UI as a Data Source**  
+With no telemetry or API access, the entire system was built from observed visuals — teaching me to extract state from in-game UI and simulate internal game logic.
 
 🧨 **Handling Cascading Errors**  
-  The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.  
-  > This taught me to design with fault tolerance in mind — adding safe defaults, reset options, and understanding how to gracefully handle imperfect data.
+The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.   
+> This taught me to design with fault tolerance in mind — adding safe defaults, user intervention options, and understanding how to gracefully handle imperfect data.
+
+   ![](Writeup/UserIntervention.gif)
 
