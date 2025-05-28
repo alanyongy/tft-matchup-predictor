@@ -15,61 +15,46 @@ Having accurate matchup info enables optimal unit positioning and strategies tha
 ### 🎯 Key Features  
 - Custom OCR implementation via AHK’s `ImageSearch` for multi-font name detection
 - Dynamic overlay showing next-round opponents in real‐time  
-- Automatic calibration using fixed on-screen UI anchors  
+- Automatic calibration using fixed on-screen UI anchors
 - Adaptation to player deaths and lobby sorting rules  
 
 ---
 
-### 🧠 Implementation Details
+### 🧠 Implementation Overview
 #### 🖼️ Custom OCR System
 AHK lacks built-in OCR. To solve this, I:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Used `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
-- Reconstructed strings by parsing image matches.
-
-Two different fonts were used in-game:
-1. **Opponent Banner Font** – displayed each round
-2. **Lobby Sidebar Font** – showing all players in current-health order
-
-By cross-referencing both sources using my OCR system, I matched the opponent faced this round with their lobby listing on the sidebar, even as players died or were re-ordered by HP.
+- Reconstructed strings by parsing image matches, which were used to match the current opponent to the player to their listing in the sidebar.
 
 #### 🎯 Matchup Prediction Logic
-
 - Implemented the internal TFT matchmaking rules manually.
 - Accounted for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
 - Tracked previous rounds to exclude recent opponents and used that data to compute eligible future opponents.
-
-#### 📌 Screen Calibration
-
-Used static UI elements (like the health bar container or timer) to dynamically define absolute screen regions for OCR scans, ensuring cross-resolution compatibility and robustness to minor UI changes.
 
 #### 💻 Overlay Rendering
 
 Once opponents were identified:
 - The tool searched the sidebar using OCR to locate where each viable opponent was listed.
-- Overlay indicators were drawn over their names using AHK GUI elements, updating automatically between rounds.
+- Overlay indicators were drawn over their icons using AHK GUI elements, updating automatically with new information.
 
----
-
-### 🛠️ Tech Stack
-
-- **AutoHotkey (AHK):** Core scripting and GUI overlays  
-- **ImageSearch:** Used unconventionally for full OCR and positional scanning  
+#### 📌 Screen Calibration
+- Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 ---
 
 ### 📈 Results & Impact
 
 - Used personally at Master+ ranks in real matches.
-- Significantly improved prediction consistency and decision-making under pressure.
+- Significantly improved matchmaking prediction consistency and decision-making under pressure.
 - Eventually deprecated after Riot introduced the same feature natively — with *identical output logic*.
 
 ---
 
 ### 🧹 Caveats
 
-- **Legacy codebase:** This project was built early in my programming journey. While the logic and design are strong, the code contains repeated patterns, hardcoded values, and lacks polish.
-- **Still worth showcasing:** It demonstrates:
+- **Legacy codebase:** This project was built early in my programming journey. While the logic and design are strong, the code quality is quite lacking.
+- However, I still wanted to showcase this project, as it demonstrates:
   - Reverse engineering and automation skills
   - UI parsing without APIs
   - Real-world impact in a competitive environment
