@@ -16,38 +16,42 @@ Having accurate matchup info enables optimal unit positioning and strategies tha
 - Custom OCR implementation via AHK’s `ImageSearch` for multi-font name detection
 - Dynamic overlay showing next-round opponents in real‐time  
 - Automatic calibration using fixed on-screen UI anchors
-- Adaptation to player deaths and lobby sorting rules  
+- Adaptation to player deaths and lobby sorting rules
 
----
-
-### 🧠 Implementation Overview
+&nbsp;
+# 🧠 Implementation Overview
 #### 🖼️ Custom OCR System
 AHK lacks built-in OCR. This was solved by:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Used `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
 - Reconstructed strings by parsing image matches, which were used to match the current opponent to the player to their listing in the sidebar.
-
+---
 #### 🎯 Matchup Prediction Logic
 - Implemented the internal TFT matchmaking rules manually.
 - Accounted for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
 - Tracked previous rounds to exclude recent opponents and used that data to compute eligible future opponents.
-
+---
 #### 💻 Overlay Rendering
 
 Once opponents were identified:
 - The tool searched the sidebar using OCR to locate where each viable opponent was listed.
 - Overlay indicators were drawn over their icons using AHK GUI elements, updating automatically with new information.
-
+---
 #### 📌 Screen Calibration
 Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
+&nbsp;
+&nbsp;
+# 📚 Technical Deep Dive
 
-
-## 📚 Technical Deep Dive
-
-###  Reading the Player Listing Sidebar
+### 1.  Reading the Player Listing Sidebar
 
 *Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
+
+
+> <details>
+> <summary>Expand</summary>
+>
 > ## Step 1: Locating Anchor Image
 > Search the right-edge of the screen for the following image:
 > 
@@ -94,6 +98,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > These caveats don't cause any issues, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output.
 > 
 > ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
+> </details>
 
 
 
