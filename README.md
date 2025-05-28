@@ -33,20 +33,19 @@ AHK lacks built-in OCR. This was solved by:
 ---
 #### 💻 Overlay Rendering
 
-Once opponents were identified:
-- The tool searched the sidebar using OCR to locate where each viable opponent was listed.
+Once opponents are identified:
+- The tool searches the sidebar using OCR to locate where each viable opponent was listed.
 - Overlay indicators were drawn over their icons using AHK GUI elements, updating automatically with new information.
 ---
 #### 📌 Screen Calibration
 Used indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
-&nbsp;
-# 📚 Technical Deep Dive
+# 📚 Technical Writeup (How it Works)
 
-### 1. Reading the Player Listing Sidebar
+### 1. Reading the Player List
 
-*Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
+*Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
 > <details>
 > <summary>Expand</summary>
 >
@@ -64,6 +63,8 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > When a letter is matched, or no match is found for any letter, the search area is shifted left (by a larger value on match).
 > 
+> *Red rectangle indicates approximate search area - only for visual explanation*
+>
 > ![](Writeup/ocr1.png) Read: `r`
 > 
 > ![](Writeup/ocr2.png) Read: `re`
@@ -78,7 +79,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > When no letter is found repeatedly, the program terminates the loop, and reverses the string.
 > 
-> ![](Writeup/ocr5.png) Terminate, Read: `Demon`
+> ![](Writeup/ocr5.png) Terminate, Read: `nomeD` --> `Demon`
 >
 > We can now search for the next anchor image, which corresponds to the next player in the sidebar.
 >
@@ -99,12 +100,13 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > </details>
 
 ### 2. Indicating Possible Matchups
+*Determining the possible opponents and displaying a visual indicator on them in real time.*
 > <details>
 > <summary>Expand</summary>
 >
 > ## Step 1: Update Dead Players
 > 
-> As part of the process of reading names in [Section 1](#1-reading-the-player-listing-sidebar), the program checks whether each player is still alive.
+> As part of the process of reading names in [Section 1](#1-reading-the-player-list), the program checks whether each player is still alive.
 >
 > This is determined by checking if their health is `0`, which is visually indicated by the following image found just to the right of the anchor:
 >
@@ -117,11 +119,11 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > Using the same OCR process that reads player names, the tool also detects which opponent the player is currently fighting.
 > 
 > The anchor used in this case is as follows: 
-> *(For more information about the anchor, refer to [Section 1](#1-reading-the-player-listing-sidebar))*
+> *(For more information about the anchor, refer to [Section 1](#1-reading-the-player-list))*
 >
 > ![](Writeup/CurrentOpponentAnchor.png)
 >
-> The string does not need to be reversed in this case, since the anchor is left of the name.
+> The string does not need to be reversed in this case, since the anchor is left of the name — the letters can be detected in order left to right.
 > 
 > ![](Writeup/CurrentOpponentExample.png)
 >
@@ -134,25 +136,17 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > ## Step 3: Calculate Possible Matchups
 >
 > The game enforces a rule: you cannot face any of your last `(4 - # of dead players)` opponents.
+> - With all 8 players alive, you cannot face the 4 opponents you have most recently fought.
+> - After a player has died, you cannot face the last 3 that you have most recently fought. 
 >
-> For example, with all 8 players alive, you cannot face the last 4 opponents.
+> Using the constantly-update match history and the list of alive players, these rules are used to compute which players are valid opponents in the next round.
 >
-> After a player has died, of the remaining 7 players, you cannot face the last 3 opponents. 
+> Visual overlays are placed on eligible opponents while reading names from the sidebar — which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game. 
 >
-> Using the updated match history and the list of alive players, we compute which players are valid opponents in the next round.
+> The result is a visual overlay indicating the potential opponents.
 >
 > ![](Writeup/PlayerListWithDead.png)
->
-> The result is a filtered list of potential matchups.
->
-> The visual overlays are placed on eligible opponents while reading names from the sidebar - which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game.
->
-> ![](Writeup/MatchupOverlay.gif)  
-> *Overlay showing eligible opponents for next round*
 > </details>
-
-*Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
-
 
 ---
 
@@ -169,7 +163,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 - **Legacy codebase:** This project was built early in my programming journey. While the logic and design are strong, the code quality is quite lacking.
 - However, I still wanted to showcase this project, as it demonstrates:
   - Reverse engineering and automation skills
-  - UI parsing without APIs
+  - End-user perspective UI parsing without APIs
   - Real-world impact in a competitive environment
 
 ---
@@ -185,15 +179,3 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 - Creative use of limited tools can rival fully integrated solutions.
 - Building UI-based automations is a powerful way to reverse-engineer closed systems.
 - Even "hacky" implementations can offer deep technical value — especially when built under tool or access constraints.
-
-
-
-
-This was a rapid solo prototype with some copy-pasting and hardcoded logic. The source is included for completeness but is not polished or optimized. For a deeper understanding, please refer to the project writeup and overview.
-
-This project was originally developed five years ago when I was just starting out with programming. While the codebase reflects an early learning phase and isn’t up to my current standards, the project remains a valuable demonstration of my problem-solving skills and creativity. Since then, my coding practices and architectural design skills have significantly improved, as you’ll see in my more recent projects.
-
-
-within the right edge of the screen, search from top of screen for player tag
-- use as anchor for checking where to start reading for a name
-- read name
