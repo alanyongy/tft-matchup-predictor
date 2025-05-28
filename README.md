@@ -44,11 +44,9 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 &nbsp;
 # 📚 Technical Deep Dive
 
-### 1.  Reading the Player Listing Sidebar
+### 1. Reading the Player Listing Sidebar
 
 *Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
-
-
 > <details>
 > <summary>Expand</summary>
 >
@@ -100,14 +98,64 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 > ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
 > </details>
 
+### 2. Indicating Possible Matchups
+> <details>
+> <summary>Expand</summary>
+>
+> ## Step 1: Update Dead Players
+> 
+> As part of the process of reading names in [Section 1](#1-reading-the-player-listing-sidebar), the program checks whether each player is still alive.
+>
+> This is determined by checking if their health is `0`, which is visually indicated by the following image found just to the right of the anchor:
+>
+> ![](Writeup/deadplayer.png)
+>
+> If this image is found, the corresponding player is marked as dead and excluded from future matchup predictions.
+> 
+> ## Step 2: Update Match History
+>
+> Using the same OCR process that reads player names, the tool also detects which opponent the player is currently fighting.
+> 
+> The anchor used in this case is as follows: (For more detail, refer to [Section 1](#1-reading-the-player-listing-sidebar))
+> ![](Writeup/CurrentOpponentAnchor.png
+>
+> The string does not need to be reversed in this case, since the anchor is left of the name.
+> ![](Writeup/CurrentOpponentExample.png)
+>
+> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR - The player indicated by this UI needs to be matched to the corresponding player in the sidebar.*
+>
+> These names are then recorded in a list of recently faced opponents.
+> ![](Writeup/OpponentHistory.png)  *Opponent name is matched to internal player list*
+> 
+> ## Step 3: Calculate Possible Matchups
+>
+> The game enforces a rule: you cannot face any of your last `(4 - # of dead players)` opponents.
+>
+> For example, with all 8 players alive, you cannot face the last 4 opponents.
+>
+> After a player has died, of the remaining 7 players, you cannot face the last 3 opponents. 
+>
+> Using the updated match history and the list of alive players, compute which players are valid opponents in the next round.
+>
+> ![](Writeup/matchupCalculationTable.png)
+>
+> The result is a filtered list of potential matchups.
+>
+> The visual overlays are placed on eligible opponents while reading names from the sidebar - which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game.
+>
+> ![](Writeup/matchupOverlay.png)  
+> *Overlay showing eligible opponents for next round*
+> </details>
+
+*Used to generate the initial list of players, as well as positioning the overlay to visually indicate possible opponents in the next round.*
 
 
 ---
 
 ### 📈 Results & Impact
 
-- Used personally at Master+ ranks in real matches.
-- Significantly improved matchmaking prediction consistency and decision-making under pressure.
+- Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
+- Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
 - Eventually deprecated after Riot introduced the same feature natively — with *identical output logic*.
 
 ---
