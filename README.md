@@ -70,17 +70,16 @@ AHK lacks built-in OCR. So I made one myself:
 > ![](Writeup/ocr2.png) Read: `re`  
 > ![](Writeup/ocr3.png) Read: `reh`
 >
-> Matched letters are stored in order, only keeping the most recent `5` letters.
+> Matched letters are stored in order, only keeping the most recent `5` letters.  
 > ![](Writeup/ocr4.png) Read: `nomeD`
 > 
 > ## Step 3: Finalization and Reinitializing  
-> When no letter is found repeatedly, the program terminates the loop, and reverses the string.
+> When no letter is found repeatedly, the program terminates the loop, and reverses the string.  
 > ![](Writeup/ocr5.png) Terminate, Read: `nomeD` --> `Demon`  
 > This is now the common name attributed to this player.
 >
-> We now need to search for the next anchor image, corresponding to the next player in the sidebar.
->
-> The search area for this anchor image is now restricted to the right edge of the screen, below where the last anchor was found.  
+> We now need to search for the next anchor image, corresponding to the next player in the sidebar.  
+> The search area for this anchor image is restricted to the right edge of the screen (as before), but now only the last anchor was found.  
 > ![](Writeup/AnchorSearchArea.png)
 >
 > Next: Repeat from Step 2, until all players in the lobby have been accounted for.
