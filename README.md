@@ -1,5 +1,5 @@
 ## 📊 TFT Matchup Predictor (2021)
-![Overlay](Overlay.png)
+![ScriptOverlay](Overlay.png)
 A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a fully custom-built OCR system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
 
 ---
