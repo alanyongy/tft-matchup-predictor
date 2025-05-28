@@ -101,22 +101,22 @@ AHK lacks built-in OCR. So I made one myself:
 > 
 > As part of the process of reading names in [Section 1](#1-reading-the-player-list), the program checks whether each player is still alive.
 >
-> This is determined by checking if their health is `0`, which is visually indicated by the following image found just to the right of the anchor:  
+> This is determined by checking if their health is not `0`, which is indicated by a failure of `ImageSearch` in matching of the following image right of the anchor:  
 > ![](Writeup/DeadPlayerIndicator.png)
 >
-> Using `ImageSearch`, the corresponding player is marked as dead and excluded from future matchup predictions if the image is found.
+> Conversely, the corresponding player is marked as dead and excluded from future matchup predictions if the image is found.
 > 
 > ## Step 2: Update Match History
 >
 > Using the same OCR process that reads player names, the tool also detects which opponent the player is currently fighting.
 > 
-> The anchor used in this case is as follows: 
+> The anchor image used in this case is the following: 
 > *(For more information about the anchor, refer to [Section 1](#1-reading-the-player-list))*  
 > ![](Writeup/CurrentOpponentAnchor.png)
 >
 > No need for reversal in this case, as the anchor is left of the name — the letters are detected left to right.  
 > ![](Writeup/CurrentOpponentExample.png)  
-> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR - The player indicated by this UI needs to be matched to the corresponding player in the sidebar.*
+> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR. If this were not the case, a simple snapshot of each player name in the sidebar on initialization, followed with image matching those snapshots in this location would suffice in matching the current opponent to their location on the sidebar.*
 >
 > These names are then recorded in a list of recently faced opponents.  
 >![](Writeup/OpponentHistory.png) 
