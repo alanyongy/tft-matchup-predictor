@@ -141,7 +141,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > Using the updated match history and the list of alive players, we compute which players are valid opponents in the next round.
 >
-> ![](Writeup/PlayerListingWithDead.png)
+> ![](Writeup/PlayerListWithDead.png)
 >
 > The result is a filtered list of potential matchups.
 >
