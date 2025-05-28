@@ -108,16 +108,16 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > This is determined by checking if their health is `0`, which is visually indicated by the following image found just to the right of the anchor:
 >
-> ![](Writeup/deadplayer.png)
+> ![](Writeup/DeadPlayerIndicator.png)
 >
-> If this image is found, the corresponding player is marked as dead and excluded from future matchup predictions.
+> Using `ImageSearch`, the corresponding player is marked as dead and excluded from future matchup predictions if the image is found.
 > 
 > ## Step 2: Update Match History
 >
 > Using the same OCR process that reads player names, the tool also detects which opponent the player is currently fighting.
 > 
 > The anchor used in this case is as follows: (For more detail, refer to [Section 1](#1-reading-the-player-listing-sidebar))
-> ![](Writeup/CurrentOpponentAnchor.png
+> ![](Writeup/CurrentOpponentAnchor.png)
 >
 > The string does not need to be reversed in this case, since the anchor is left of the name.
 > ![](Writeup/CurrentOpponentExample.png)
