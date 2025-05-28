@@ -1,15 +1,14 @@
 # 📊 TFT Matchup Predictor (2021)
 ![](Writeup/ScriptOverlay.png)
-A real-time AutoHotKey (AHK) based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a custom-built Optical Character Recognition (OCR) system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
+A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom OCR system. Used personally in high-ranked matches until Riot implemented the same feature in-game.
 
 ---
 
 ### 🔧 Background
-Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on valid upcoming opponents.
+Teamfight Tactics pits 8 players in ongoing 1v1 rounds, where each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on valid upcoming opponents.
 
 **Why it matters:**  
-Accurately predicting and tracking these matchups manually is theoretically possible, but difficult and impractical during gameplay. 
-Having accurate matchup info enables the player to optimally position units for upcoming fights, and employ strategies that exploit battle dynamics, offering a major edge in high-level play. 
+While players can theoretically predict matchups manually, doing so mid-game is time consuming, error-prone, and impractical. Automating this process allows the player to focus on their gameplay, and enables strategically positioning for the boards they're matching up against.
 
 ---
  
@@ -139,7 +138,7 @@ AHK lacks built-in OCR. So I made one myself:
 # 🏆 Results & Impact
 
 - Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
-- Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
+- Improved ability to make use of positioning strategies and make gameplay decisions under pressure.
 - Eventually deprecated after Riot Games introduced the same feature natively — *mirroring this tool’s prediction logic identically*.
 
 *Real-time updating of visual indicators in response to players changing positions in the UI:*  
