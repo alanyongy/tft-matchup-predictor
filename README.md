@@ -61,7 +61,7 @@ AHK lacks built-in OCR. So I made one myself:
 >
 > ## Step 2: Letter Matching  
 > Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will occur.  
-> *This approach enables a highly efficient search of all supported alphanumeric characters.*
+> *This highly efficient approach enables perfomant search attempts of all supported alphanumeric characters.*
 > 
 > When a letter is matched, or no match is found for any letter, the search area is shifted left (by a larger value on match).
 > 
