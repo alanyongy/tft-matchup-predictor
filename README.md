@@ -8,7 +8,7 @@ A real-time AutoHotKey (AHK) based tool for predicting upcoming opponents in *Te
 Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on valid upcoming opponents.
 
 **Why it matters:**  
-Accurately predicting matchups manually is theoretically possible, but difficult and impractical during gameplay. 
+Accurately predicting and tracking these matchups manually is theoretically possible, but difficult and impractical during gameplay. 
 Having accurate matchup info enables the player to optimally position units for upcoming fights, and employ strategies that exploit battle dynamics, offering a major edge in high-level play. 
 
 ---
@@ -23,9 +23,9 @@ Having accurate matchup info enables the player to optimally position units for 
 # 🧠 Implementation Overview
 🖼️ **Custom OCR System**
 
-AHK lacks built-in OCR. This was solved by:
+AHK lacks built-in OCR. So I made one myself:
 - Manually creating a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Using `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
+- Using `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area. 
 - Reconstructing strings by parsing image matches, then using them to match the current opponent to the player to their listing in the sidebar.
 ---
 
@@ -38,7 +38,7 @@ AHK lacks built-in OCR. This was solved by:
 💻 **Overlay Rendering**
 
 Once opponents are identified:
-- The tool searches the sidebar using OCR to locate where each viable opponent was listed.
+- The tool actively scans the sidebar using OCR to locate where each viable opponent is listed.
 - Overlay indicators are drawn over their icons using AHK GUI elements, updating automatically with new information.
 ---
 
@@ -100,7 +100,7 @@ Uses indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > Consecutive duplicate letters are also discarded, in order to simplify the shifting of the search area.
 >
-> These caveats don't cause any issues, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output and successful correspondence.
+> These caveats don't affect accuracy, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output and successful correspondence.
 > 
 > ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
 > </details>
@@ -147,7 +147,7 @@ Uses indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > Using the constantly-update match history and the list of alive players, these rules are used to compute which players are valid opponents in the next round.
 >
-> Visual overlays are placed on eligible opponents while reading names from the sidebar — which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game. 
+> Visual indicators are overlayed on eligible opponents while reading names from the sidebar — which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game. 
 >
 > The result is a visual overlay indicating the potential opponents.
 >
@@ -155,11 +155,11 @@ Uses indicator UI elements to dynamically define screen regions for 'ImageSearch
 > </details>
 
 &nbsp;
-## 📈 Results & Impact
+## 🏆 Results & Impact
 
 - Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
 - Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
-- Eventually deprecated after Riot introduced the same feature natively — with *identical output logic*.
+- Eventually deprecated after Riot Games introduced the same feature natively — *mirroring this tool’s prediction logic identically*.
 
 *Real-time updating of visual indicators in response to players changing positions in the UI:*
 
@@ -176,7 +176,8 @@ Uses fixed image references for anchors and OCR — any visual UI change can bre
 Only detects A–Z, a–z, and 0–9. Players with identical names (except for unsupported characters) may be indistinguishable.
 
 🐣 **Legacy Codebase**  
-Written early in my programming journey. While the logic is solid, the code lacks polish. Still valuable for:
+Built during the early stages of my programming career, during highschool. While the logic is solid, the code lacks polish.  
+However, the underlying design demonstrates core competencies:
   - Reverse engineering and automation skills
   - End-user perspective UI parsing without APIs
   - Real-world impact in a competitive environment
