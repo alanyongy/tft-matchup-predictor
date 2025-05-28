@@ -24,27 +24,24 @@ Having accurate matchup info enables the player to optimally position units for 
 🖼️ **Custom OCR System**
 
 AHK lacks built-in OCR. So I made one myself:
-- Manually creating a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Using `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area. 
-- Reconstructing strings by parsing image matches, then using them to match the current opponent to the player to their listing in the sidebar.
+- Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
+- Uses `ImageSearch` to detect characters within specific screen regions, making use of UI anchors to minimize the search area. 
+- Reconstructs strings by parsing image matches, then uses them to match the current opponent to their listing in the sidebar.
 ---
 
 🎯 **Matchup Prediction Logic**
-- Implemented the internal TFT matchmaking rules manually.
-- Account for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
-- Track previous rounds to exclude recent opponents and use that data to compute eligible future opponents.
+- Implements the internal TFT matchmaking rules manually.
+- Accounts for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
+- Tracks previous rounds to exclude recent opponents, uses that data to compute eligible future opponents.
 ---
 
 💻 **Overlay Rendering**
-
-Once opponents are identified:
-- The tool actively scans the sidebar using OCR to locate where each viable opponent is listed.
-- Overlay indicators are drawn over their icons using AHK GUI elements, updating automatically with new information.
+- Actively scans the sidebar using OCR to locate where each viable opponent is listed.
+- Draws indicators over valid opponent icons using AHK GUI elements, updating automatically with new information.
 ---
 
 📌 **Screen Calibration**
-
-Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
+- Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
 # 📚 Technical Writeup (How it Works)
