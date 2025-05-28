@@ -22,7 +22,7 @@ Having accurate matchup info enables optimal unit positioning and strategies tha
 
 ### 🧠 Implementation Overview
 #### 🖼️ Custom OCR System
-AHK lacks built-in OCR. To solve this, I:
+AHK lacks built-in OCR. This was solved by:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Used `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
 - Reconstructed strings by parsing image matches, which were used to match the current opponent to the player to their listing in the sidebar.
@@ -43,7 +43,25 @@ Once opponents were identified:
 
 ---
 
-### 📚 Technical Deep Dive: OCR
+### 📚 Technical Deep Dive:
+
+#### Reading the Player Listing Sidebar 
+
+Used to generate the initial list of players, as well as positioning the overlay to indicate possible opponents in the next round.
+> 
+> Search the right-edge of the screen for the following image:
+> 
+> ![PlayerTagAnchor](PlayerTagAnchor.png)
+> 
+> This gives us the exact location right of where the top-most player's name is.
+> 
+> ![PlayerTagAnchorExplanation](PlayerTagAnchorExplanation.png)
+> 
+> Then, we can begin image-detecting for each letter of the side-bar player name font.
+> A small window is constantly shifted left - by large increments when a letter is matched, and smaller when no match was found.
+
+> 
+
 
 ---
 
