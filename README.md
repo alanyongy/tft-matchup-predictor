@@ -116,16 +116,20 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > Using the same OCR process that reads player names, the tool also detects which opponent the player is currently fighting.
 > 
-> The anchor used in this case is as follows: (For more detail, refer to [Section 1](#1-reading-the-player-listing-sidebar))
+> The anchor used in this case is as follows: 
+> *(For more information about the anchor, refer to [Section 1](#1-reading-the-player-listing-sidebar))*
+>
 > ![](Writeup/CurrentOpponentAnchor.png)
 >
 > The string does not need to be reversed in this case, since the anchor is left of the name.
+> 
 > ![](Writeup/CurrentOpponentExample.png)
 >
 > *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR - The player indicated by this UI needs to be matched to the corresponding player in the sidebar.*
 >
 > These names are then recorded in a list of recently faced opponents.
-> ![](Writeup/OpponentHistory.png)  *Opponent name is matched to internal player list*
+>
+> ![](Writeup/OpponentHistory.png) 
 > 
 > ## Step 3: Calculate Possible Matchups
 >
@@ -135,15 +139,15 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > After a player has died, of the remaining 7 players, you cannot face the last 3 opponents. 
 >
-> Using the updated match history and the list of alive players, compute which players are valid opponents in the next round.
+> Using the updated match history and the list of alive players, we compute which players are valid opponents in the next round.
 >
-> ![](Writeup/matchupCalculationTable.png)
+> ![](Writeup/PlayerListingWithDead.png)
 >
 > The result is a filtered list of potential matchups.
 >
 > The visual overlays are placed on eligible opponents while reading names from the sidebar - which is constantly done in order to account player positions in the sidebar constantly changing over the course of a game.
 >
-> ![](Writeup/matchupOverlay.png)  
+> ![](Writeup/MatchupOverlay.gif)  
 > *Overlay showing eligible opponents for next round*
 > </details>
 
