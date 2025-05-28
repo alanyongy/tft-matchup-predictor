@@ -1,5 +1,5 @@
 ## 📊 TFT Matchup Predictor (2021)
-![ScriptOverlay](ScriptOverlay.png)
+![](Writeup/ScriptOverlay.png)
 A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a fully custom-built OCR system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
 
 ---
@@ -49,18 +49,50 @@ Once opponents were identified:
 
 Used to generate the initial list of players, as well as positioning the overlay to indicate possible opponents in the next round.
 > 
+> ## Step 1: Locating Anchor Image
 > Search the right-edge of the screen for the following image:
 > 
-> ![PlayerTagAnchor](PlayerTagAnchor.png)
+> ![](Writeup/PlayerTagAnchor.png)
 > 
 > This gives us the exact location right of where the top-most player's name is.
 > 
-> ![PlayerTagAnchorExplanation](PlayerTagAnchorExplanation.png)
+> ![](Writeup/PlayerTagAnchorExplanation.png)
+>
+> ## Step 2: Letter Matching
+> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will occur.
+>
+> When a letter is matched, or no match is found for any letter, the search area is shifted left (by a larger value on match).
 > 
-> Then, we can begin image-detecting for each letter of the side-bar player name font.
-> A small window is constantly shifted left - by large increments when a letter is matched, and smaller when no match was found.
+> ![](Writeup/ocr1.png) Read: `r`
+> 
+> ![](Writeup/ocr2.png) Read: `re`
+> 
+> ![](Writeup/ocr3.png) Read: `reh`
+>
+> Matched letters are stored in order, only keeping the most recent `5` letters.
+>
+> ![](Writeup/ocr4.png) Read: `nomeD`
+> 
+> ## Step 3: Finalization and Reinitializing
+>
+> When no letter is found repeatedly, the program terminates the loop, and reverses the string.
+> 
+> ![](Writeup/ocr5.png) Terminate, Read: `Demon`
+>
+> We can now search for the next anchor image, which corresponds to the next player in the sidebar.
+>
+> The search area for this anchor image is now restricted to the right edge of the screen, below where the last anchor was found.
+> ![](Writeup/AnchorSearchArea.png)
+>
+> ## Final Result
+> Certain letters are ignored, as they are unable to be accurately detected and differentiated. For example, `n/h`, `I/1/l`, etc.
+>
+> Consecutive duplicate letters are also discarded, in order to simplify the shifting of the search area.
+>
+> These caveats don't cause any issues, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output.
+> 
+> ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
 
-> 
 
 
 ---
