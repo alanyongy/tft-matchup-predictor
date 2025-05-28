@@ -1,14 +1,15 @@
 # 📊 TFT Matchup Predictor (2021)
 ![](Writeup/ScriptOverlay.png)
-A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a fully custom-built OCR system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
+A real-time AutoHotKey (AHK) based tool for predicting upcoming opponents in *Teamfight Tactics*, using only screen data and a fully custom-built OCR system. Used in high-rank competitive matches and later deprecated when Riot Games implemented the feature natively.
 
 ---
 
 ### 🔧 Background
-Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset, overlaying valid opponents each round. 
+Teamfight Tactics pits 8 players in ongoing 1v1 rounds. Each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on valid upcoming opponents.
 
-**Why it matters:** Accurately predicting matchups manually is theoretically possible, but difficult and impractical during gameplay. 
-Having accurate matchup info enables optimal unit positioning and strategies that exploit battle dynamics, offering a major edge in high-level play. 
+**Why it matters:**  
+Accurately predicting matchups manually is theoretically possible, but difficult and impractical during gameplay. 
+Having accurate matchup info enables the player to optimally position units for upcoming fights, and employ strategies that exploit battle dynamics, offering a major edge in high-level play. 
 
 ---
  
@@ -24,7 +25,7 @@ Having accurate matchup info enables optimal unit positioning and strategies tha
 
 AHK lacks built-in OCR. This was solved by:
 - Manually creating a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Useing `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
+- Using `ImageSearch` to detect characters within specific screen regions, using UI anchors to determine the search area.
 - Reconstructing strings by parsing image matches, then using them to match the current opponent to the player to their listing in the sidebar.
 ---
 
@@ -99,7 +100,7 @@ Uses indicator UI elements to dynamically define screen regions for 'ImageSearch
 >
 > Consecutive duplicate letters are also discarded, in order to simplify the shifting of the search area.
 >
-> These caveats don't cause any issues, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output.
+> These caveats don't cause any issues, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output and successful correspondence.
 > 
 > ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
 > </details>
@@ -160,9 +161,9 @@ Uses indicator UI elements to dynamically define screen regions for 'ImageSearch
 - Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
 - Eventually deprecated after Riot introduced the same feature natively — with *identical output logic*.
 
-![](Writeup/LiveTracking.gif)
+*Real-time updating of visual indicators in response to players changing positions in the UI:*
 
-*Real-time updating of visual indicators in response to players changing positions in the UI*
+![](Writeup/LiveTracking.gif)
 
 *Possible Opponents: "MrÉ", "Get Caryed", "MIGGY"*
 
@@ -189,8 +190,8 @@ Real-time performance required optimizing OCR tolerances and implementing techni
 With no telemetry or API access, the entire system was built from observed visuals — teaching me to extract state from in-game UI and simulate internal game logic.
 
 🧨 **Handling Cascading Errors**  
-The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.   
-> This taught me to design with fault tolerance in mind — adding safe defaults, user intervention options, and understanding how to gracefully handle imperfect data.
+The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.  
+- This taught me to design with fault tolerance in mind — adding safe defaults, user intervention options, and understanding how to gracefully handle imperfect data.
 
    ![](Writeup/UserIntervention.gif)
 
