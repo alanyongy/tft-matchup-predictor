@@ -170,8 +170,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 
 ### 📸 Visuals
 
-*(Include at least one GIF showing the overlay updating mid-match, and a screenshot of OCR in action.)*
-
+![](LiveTracking.gif)
 ---
 
 ### 🧠 Lessons Learned
@@ -179,3 +178,4 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 - Creative use of limited tools can rival fully integrated solutions.
 - Building UI-based automations is a powerful way to reverse-engineer closed systems.
 - Even "hacky" implementations can offer deep technical value — especially when built under tool or access constraints.
+
