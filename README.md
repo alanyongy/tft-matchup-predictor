@@ -11,7 +11,7 @@ A real-time AHK-based tool for predicting upcoming opponents in *Teamfight Tacti
 Having accurate matchup info enables optimal unit positioning and strategies that exploit battle dynamics, offering a major edge in high-level play. 
 
 ---
-
+ 
 ### 🎯 Key Features  
 - Custom OCR implementation via AHK’s `ImageSearch` for multi-font name detection
 - Dynamic overlay showing next-round opponents in real‐time  
