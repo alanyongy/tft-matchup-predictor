@@ -43,28 +43,29 @@ AHK lacks built-in OCR. So I made one myself:
 - Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
-# 📚 Technical Writeup (How it Works)
+# 📚 Technical Writeup (the interesting part!)
 
 ### 1. Reading the Player List
 
 *Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
 > <details>
-> <summary>Expand</summary>
+> <summary>Click to Expand (seriously, do it)</summary>
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
 > ![](Writeup/PlayerTagAnchor.png) 
 >
-> This gives us the exact location right of the top-most player's name.  
+> This will be known as the "anchor", as it gives us an exact, consistent location relative to a player's name (in this case, the top-most one).  
 > ![](Writeup/PlayerTagAnchorExplanation.png)
 >
 > ## Step 2: Letter Matching  
-> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will occur.  
-> *This highly efficient approach enables perfomant search attempts of all supported alphanumeric characters.*
+> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will search within. 
+> *This approach significant reduces the time required for search attempts by minimizing the search area.*
+>
+> Within the search area, run `ImageSearch` on all pre-defined character images of the character set. (`a-z`, `A-Z`, `0-9`)  
+> After a character is found (or none are), the search area shifts left — more on success, as the found character occupies the region.
 > 
-> When a letter is matched, or no match is found for any letter, the search area is shifted left (by a larger value on match).
-> 
-> *Red rectangle indicates approximate search area - only for visual explanation*  
+> *Red visual indicates approximate search area.*  
 > ![](Writeup/ocr1.png) Read: `r`  
 > ![](Writeup/ocr2.png) Read: `re`  
 > ![](Writeup/ocr3.png) Read: `reh`
@@ -84,17 +85,20 @@ AHK lacks built-in OCR. So I made one myself:
 > Next: Repeat from Step 2, until all players in the lobby have been accounted for.
 >
 > ## Final Result
-> Certain letters are ignored, as they are difficult to accurately detect and differentiate: `n/h`, `I/1/l`, etc.  
-> Consecutive duplicate letters are also discarded, in order to simplify the shifting of the search area.
+> Certain letters are ignored, as they are difficult to accurately detect and differentiate, for example `I/1/l`. 
 >
-> These caveats don't affect accuracy, as the same rules are applied to the OCR used to detect the current opponent, resulting in consistent output and successful correspondence.  
-> ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)
+> Duplicate letters are also discarded, in order to simplify the shifting of the search area.  
+> *Otherwise, thin characters such as `t` or `I` may be detected and recorded twice.*
+>
+> The same rules are applied to the OCR process used to detect the current opponent to keep consistency.  
+> ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)  
+> `Demon` *becomes* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
 > </details>
 
 ### 2. Indicating Possible Matchups
 *Determining the possible opponents and displaying a visual indicator on them in real time.*
 > <details>
-> <summary>Expand</summary>
+> <summary>Click to Expand</summary>
 >
 > ## Step 1: Update Dead Players
 > 
@@ -115,7 +119,7 @@ AHK lacks built-in OCR. So I made one myself:
 >
 > No need for reversal in this case, as the anchor is left of the name — the letters are detected left to right.  
 > ![](Writeup/CurrentOpponentExample.png)  
-> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR. If this were not the case, a simple snapshot of each player name in the sidebar on initialization, followed with image matching those snapshots in this location would suffice in matching the current opponent to their location on the sidebar.*
+> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR. If this were not the case, a well-positioned snapshot of each player name in the sidebar on initialization, followed with image matching such snapshots in this location would suffice in matching the current opponent to their location on the sidebar.*
 >
 > These names are then recorded in a list of recently faced opponents.  
 >![](Writeup/OpponentHistory.png) 
