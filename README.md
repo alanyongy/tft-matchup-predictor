@@ -170,7 +170,7 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 
 ### 📸 Visuals
 
-![](LiveTracking.gif)
+![](Writeup/LiveTracking.gif)
 ---
 
 ### 🧠 Lessons Learned
