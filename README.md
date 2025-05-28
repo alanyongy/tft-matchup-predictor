@@ -156,26 +156,37 @@ Used indicator UI elements to dynamically define screen regions for 'ImageSearch
 - Significantly improved ability to make use of positioning strategies and make gameplay decisions under pressure.
 - Eventually deprecated after Riot introduced the same feature natively — with *identical output logic*.
 
+![](Writeup/LiveTracking.gif)
+
+*Real-time updating of visual indicators in response to players changing positions in the UI*
+
+*Possible Opponents: "MrÉ", "Get Caryed", "MIGGY"*
+
 ---
 
 ### 🧹 Caveats
+🔍 **Static Image Detection**  
+  Uses fixed image references for anchors and OCR — any visual UI change can break functionality.
 
-- **Legacy codebase:** This project was built early in my programming journey. While the logic and design are strong, the code quality is quite lacking.
-- However, I still wanted to showcase this project, as it demonstrates:
+🌐 **Limited Character Support**  
+  Only detects A–Z, a–z, and 0–9. Players with identical names (except for unsupported characters) may be indistinguishable.
+
+🧓 **Legacy Codebase**  
+  Written early in my programming journey. While the logic is solid, the code lacks polish. Still valuable for:
   - Reverse engineering and automation skills
   - End-user perspective UI parsing without APIs
   - Real-world impact in a competitive environment
 
 ---
 
-### 📸 Visuals
-
-![](Writeup/LiveTracking.gif)
----
-
 ### 🧠 Lessons Learned
+⚙️ **Designing for Accuracy and Speed**  
+  Real-time performance required optimizing OCR tolerances and search efficiency to match fast-paced gameplay.
 
-- Creative use of limited tools can rival fully integrated solutions.
-- Building UI-based automations is a powerful way to reverse-engineer closed systems.
-- Even "hacky" implementations can offer deep technical value — especially when built under tool or access constraints.
+🧭 **UI as a Data Source**  
+  With no telemetry or API access, the entire system was built from observed visuals — teaching me to extract state from pixels and simulate internal game logic.
+
+🧨 **Handling Cascading Errors**  
+  The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.  
+  > This taught me to design with fault tolerance in mind — adding safe defaults, reset options, and understanding how to gracefully handle imperfect data.
 
