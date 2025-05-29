@@ -135,7 +135,7 @@ AHK lacks built-in OCR. So I made one myself:
 > Visual indicators are overlayed on eligible opponents while reading names from the sidebar — which is done constantly in order to account for player positions in the sidebar changing over the course of a game. 
 >
 > The result is a reliable visual overlay perpetually indicating possible opponents for the next round.  
-> ![](Writeup/PlayerListWithDead.png)
+> ![](Writeup/PlayerListIncludeDead.png)
 > </details>
 
 &nbsp;
