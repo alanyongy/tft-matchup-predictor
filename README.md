@@ -43,7 +43,7 @@ AHK lacks built-in OCR. So I made one myself:
 - Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
-# 📚 Technical writeup-assets (the interesting part!)
+# 📚 Technical Writeup (the interesting part!)
 
 ### 1. Reading the Player List
 
