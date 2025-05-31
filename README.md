@@ -1,5 +1,5 @@
 # 📊 TFT Matchup Predictor (2021)
-![](Writeup/ScriptOverlay.png)
+![](writeup-assets/ScriptOverlay.png)
 A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in *Teamfight Tactics* by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system. Used personally in high-ranked matches until *Riot Games* implemented the same feature in-game.
 
 ---
@@ -43,7 +43,7 @@ AHK lacks built-in OCR. So I made one myself:
 - Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
 
 &nbsp;
-# 📚 Technical Writeup (the interesting part!)
+# 📚 Technical writeup-assets (the interesting part!)
 
 ### 1. Reading the Player List
 
@@ -53,10 +53,10 @@ AHK lacks built-in OCR. So I made one myself:
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
-> ![](Writeup/PlayerTagAnchor.png) 
+> ![](writeup-assets/PlayerTagAnchor.png) 
 >
 > This will be known as the "anchor", as it gives us an exact, consistent location relative to a player's name (in this case, the top-most one).  
-> ![](Writeup/PlayerTagAnchorExplanation.png)
+> ![](writeup-assets/PlayerTagAnchorExplanation.png)
 >
 > ## Step 2: Letter Matching  
 > Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will search within. 
@@ -66,21 +66,21 @@ AHK lacks built-in OCR. So I made one myself:
 > After a character is found (or none are), the search area shifts left — more on success, as the found character occupies the region.
 > 
 > *Red visual indicates approximate search area.*  
-> ![](Writeup/ocr1.png) Read: `r`  
-> ![](Writeup/ocr2.png) Read: `re`  
-> ![](Writeup/ocr3.png) Read: `reh`
+> ![](writeup-assets/ocr1.png) Read: `r`  
+> ![](writeup-assets/ocr2.png) Read: `re`  
+> ![](writeup-assets/ocr3.png) Read: `reh`
 >
 > Matched letters are stored in order, only keeping the most recent `5` letters.  
-> ![](Writeup/ocr4.png) Read: `nomeD`
+> ![](writeup-assets/ocr4.png) Read: `nomeD`
 > 
 > ## Step 3: Finalization and Reinitializing  
 > When no letter is found repeatedly, the program terminates the loop, and reverses the string.  
-> ![](Writeup/ocr5.png) Terminate, Read: `nomeD` --> `Demon`  
+> ![](writeup-assets/ocr5.png) Terminate, Read: `nomeD` --> `Demon`  
 > This is now the common name attributed to this player.
 >
 > We now need to search for the next anchor image, corresponding to the next player in the sidebar.  
 > The search area will be the right edge of the screen (as before), but now only starting below where the last anchor was found.  
-> ![](Writeup/AnchorSearchArea.png)
+> ![](writeup-assets/AnchorSearchArea.png)
 >
 > Next: Repeat from Step 2, until all players in the lobby have been accounted for.
 >
@@ -91,7 +91,7 @@ AHK lacks built-in OCR. So I made one myself:
 > *Otherwise, thin characters such as `t` or `I` may be detected and recorded twice.*
 >
 > The same rules are applied to the OCR process used to detect the current opponent to keep consistency.  
-> ![](Writeup/PlayersSidebarList.png) ![](Writeup/InternalPlayerList.png)  
+> ![](writeup-assets/PlayersSidebarList.png) ![](writeup-assets/InternalPlayerList.png)  
 > `Demon` *becomes* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
 > </details>
 
@@ -105,7 +105,7 @@ AHK lacks built-in OCR. So I made one myself:
 > As part of the process of reading names in [Section 1](#1-reading-the-player-list), the program checks whether each player is still alive.
 >
 > This is determined by checking if their health is not `0`, which is indicated by a failure of `ImageSearch` in matching of the following image right of the anchor:  
-> ![](Writeup/DeadPlayerIndicator.png)
+> ![](writeup-assets/DeadPlayerIndicator.png)
 >
 > Conversely, the corresponding player is marked as dead and excluded from future matchup predictions if the image is found.
 > 
@@ -115,14 +115,14 @@ AHK lacks built-in OCR. So I made one myself:
 > 
 > The anchor image used in this case is the following: 
 > *(For more information about the anchor, refer to [Section 1](#1-reading-the-player-list))*  
-> ![](Writeup/CurrentOpponentAnchor.png)
+> ![](writeup-assets/CurrentOpponentAnchor.png)
 >
 > No need for reversal in this case, as the anchor is left of the name — the letters are detected left to right.  
-> ![](Writeup/CurrentOpponentExample.png)  
+> ![](writeup-assets/CurrentOpponentExample.png)  
 > *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR. If this were not the case, a well-positioned snapshot of each player name in the sidebar on initialization, followed with image matching such snapshots in this location would suffice in matching the current opponent to their location on the sidebar.*
 >
 > These names are then recorded in a list of recently faced opponents.  
->![](Writeup/OpponentHistory.png) 
+>![](writeup-assets/OpponentHistory.png) 
 > 
 > ## Step 3: Calculate Possible Matchups
 >
@@ -135,7 +135,7 @@ AHK lacks built-in OCR. So I made one myself:
 > Visual indicators are overlayed on eligible opponents while reading names from the sidebar — which is done constantly in order to account for player positions in the sidebar changing over the course of a game. 
 >
 > The result is a reliable visual overlay perpetually indicating possible opponents for the next round.  
-> ![](Writeup/PlayerListIncludeDead.png)
+> ![](writeup-assets/PlayerListIncludeDead.png)
 > </details>
 
 &nbsp;
@@ -146,7 +146,7 @@ AHK lacks built-in OCR. So I made one myself:
 - Eventually deprecated after *Riot Games* introduced the same feature natively — *mirroring this tool’s prediction logic identically*.
 
 *Real-time updating of visual indicators in response to players changing positions in the UI:*  
-![](Writeup/LiveTracking.gif)  
+![](writeup-assets/LiveTracking.gif)  
 *Possible Opponents: "MrÉ", "Get Caryed", "MIGGY"*
 
 &nbsp;
@@ -185,5 +185,5 @@ With no telemetry or API access, the entire system was built from observed visua
 The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.  
 - This taught me to design with fault tolerance in mind — adding safe defaults, user intervention options, and understanding how to gracefully handle imperfect data.
 
-   ![](Writeup/UserIntervention.gif)
+   ![](writeup-assets/UserIntervention.gif)
 
