@@ -15,19 +15,21 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 ---
  
 ### 🎯 Key Features  
-- **OCR using AHK:** Custom OCR pipeline leveraging AutoHotKey’s `ImageSearch`
-- Logic to adapt to player deaths and lobby sorting rules  
-- Dynamic overlay to display next-round opponents in real-time  
+- Developed a custom OCR pipeline leveraging AutoHotKey’s `ImageSearch` to recognize multi-font player names
+- Dynamically define tight search regions to optimize `ImageSearch` for real-time analysis and predictions
+- Implemented a dynamic overlay to display next-round opponents in real-time   
+- Designed logic to adapt to player deaths and lobby sorting rules
 
 
 &nbsp;
 # 🧠 Implementation Overview
 
 🖼️ **Custom OCR System in AHK**
-- Implemented in AHK (which has no native OCR) using `ImageSearch` for real-time character recognition
-- Created a database of all alphanumerics (A–Z, a–z, 1–9) for the two in-game fonts.
-- Uses fixed UI elements to dynamically define tight search regions to accelerate `ImageSearch` calls
-- Reconstructs names in a consistent manner across fonts, using rules to handle ambiguity
+AHK lacks built-in OCR. So I made one myself:
+- Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
+- Uses AHK's `ImageSearch` to detect character images within specific screen regions, making use of UI anchors to minimize the search area.
+- Uses fixed UI elements to dynamically define specific search regions to accelerate `ImageSearch` calls
+- Reconstructs strings by parsing character-level image matches, then uses them to match the current opponent to their listing in the sidebar.
 
 <sub>*Full details in [Section 1](#1-reading-the-player-list) of the technical breakdown below.*</sub>
 
@@ -35,7 +37,7 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 
 🎯 **Matchup Prediction Logic**
 - Replicates TFT’s internal matchmaking rules to identify potential opponents each round.
-- Incorporates rule exceptions for odd player counts, eliminated players, and repeat prevention.
+- Accounts for edge cases: odd lobby counts, eliminated players, and rules that prevent facing the same player too many times in a row.
 - Maintains round history to compute eligible matchups and exclude recent opponents.  
 
 <sub>*Full details in [Section 2](#2-indicating-possible-matchups) of the technical breakdown below.*</sub>
@@ -48,13 +50,13 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 - Updates dynamically in response to UI changes, ensuring accurate and timely display.
   
 &nbsp;
-# 📚 Technical Breakdown
+# 📚 Technical Breakdown (the interesting part!)
 
 ### 1. Reading the Player List
 
 *Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
 > <details>
-> <summary>Click to Expand</summary>
+> <summary>Click to Expand (seriously, do it)</summary>
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
@@ -199,4 +201,3 @@ In systems where each decision depends on prior observations, a single misread c
   
    ![](writeup-assets/UserIntervention.gif)  
    **Manual error correction example, opponent history updates automatically.*
-
