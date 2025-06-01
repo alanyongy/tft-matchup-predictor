@@ -57,9 +57,10 @@ AHK lacks built-in OCR. So I made one myself:
 
 ### 1. Reading the Player List
 
-*Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
+*Generating the initial list of players, and keeping track of their location on the in-game sidebar.  
+<sup>Step by step walkthrough of the custom OCR process and crucial optimizations to achieve real-time responsiveness.</sup>*
 > <details>
-> <summary>Click to Expand <sub><sup>(seriously, do it)</sup></sub></summary>
+> <summary><strong>Click to Expand</strong></summary>
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
@@ -106,9 +107,10 @@ AHK lacks built-in OCR. So I made one myself:
 > </details>
 
 ### 2. Indicating Possible Matchups
-*Determining the possible opponents and displaying a visual indicator on them in real time.*
+*Determining the possible opponents and displaying a visual indicator on them in real time.  
+<sup>Explains specific motivation behind implementing OCR and the matchmaking algorithm</sup>*
 > <details>
-> <summary>Click to Expand</summary>
+> <summary><strong>Click to Expand</strong></summary>
 >
 > ## Step 1: Update Dead Players
 > 
