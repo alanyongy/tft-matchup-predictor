@@ -54,13 +54,13 @@ AHK lacks built-in OCR. So I made one myself:
 - Updates dynamically in response to UI changes, ensuring accurate and timely display.
   
 &nbsp;
-# 📚 Technical Breakdown (the interesting part!)
+# 📚 Technical Breakdown <sub><sup>(the interesting part!)</sup></sub>
 
 ### 1. Reading the Player List
 
 *Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
 > <details>
-> <summary>Click to Expand (seriously, do it)</summary>
+> <summary>Click to Expand <sub><sup>(seriously, do it)</sup></sub></summary>
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
