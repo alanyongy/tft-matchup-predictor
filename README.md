@@ -30,9 +30,9 @@ Automating this process puts the player in prime position to strategically posit
 
 AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Used AHK's `ImageSearch` to methodically detect character images within specific screen regions.
-- Made use of fixed UI elements to dynamically define and minimize search regions to accelerate `ImageSearch` calls.
-- Reconstructed player names by parsing character-level image matches, then used them to correspond opponents to their listing in the sidebar.
+- Uses AHK's `ImageSearch` to methodically detect character images within specific screen regions.
+- Makes use of fixed UI elements to dynamically define and minimize search regions to accelerate `ImageSearch` calls.
+- Reconstructs player names by parsing character-level image matches (to correspond opponents to their listing in the sidebar).
 
 <sub>*Full details in [Section 1](#1-reading-the-player-list) of the technical breakdown below.*</sub>
 
