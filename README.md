@@ -16,7 +16,7 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 - Developed a custom OCR pipeline leveraging AutoHotKey’s `ImageSearch` to recognize multi-font player names in real-time.
 - Implemented a dynamic overlay to display next-round opponents in real-time  
 - Built an automatic calibration system using fixed on-screen UI anchors  
-- Designed logic to adapt to player deaths and lobby sorting rules in real-time
+- Designed logic to adapt to player deaths and lobby sorting rules
 
 &nbsp;
 # 🧠 Implementation Overview
@@ -152,12 +152,14 @@ AHK lacks built-in OCR. So I made one myself:
 &nbsp;
 # 🧹 Caveats
 🖼 **Static Image Detection**  
-Uses pre-defined image references for anchors and OCR — any visual UI change needs a manual update to restore functionality.
+Uses pre-defined image references for anchors and OCR
+- Any visual UI change needs a manual update to restore functionality.
 
 ---
 
 🌐 **Limited Character Support**  
-Only detects A–Z, a–z, and 0–9. Players with identical names (except for unsupported characters) may be indistinguishable.
+Only detects A–Z, a–z, and 0–9.
+- Players with identical names (except for unsupported characters) may be indistinguishable.
 
 ---
 
@@ -171,19 +173,25 @@ However, the underlying design demonstrates core competencies:
 
 &nbsp;
 # 🧠 Lessons Learned
-⌚ **Designing for Accuracy and Speed**  
-Real-time performance required optimizing OCR tolerances and implementing techniques to improve search efficiency to match fast-paced gameplay.
+⌚ **Balancing Accuracy with Real-Time Constraints**  
+Optimizing for both speed and precision revealed the core challenge of real-time perception systems: small delays or inaccuracies can compound rapidly.  
+- Tuning OCR tolerances required balancing false positives against missed detections under time pressure.  
+- Designing for speed meant simplifying recognition pipelines while ensuring correctness didn’t degrade — a recurring tension in time-critical AI.
 
 ---
 
-🔍 **UI as a Data Source**  
-With no telemetry or API access, the entire system was built from observed visuals — teaching me to extract state from in-game UI and simulate internal game logic.
+🔍 **Treating the UI as Ground Truth**  
+Lacking any backend or telemetry access, I had to reconstruct system state purely from on-screen visuals.  
+- This forced me to treat the UI as the sole observable layer and reverse-engineer internal logic based on visual cues alone.  
+- It highlighted the importance of modeling imperfect, user-facing interfaces as data sources — and the assumptions and errors that can follow.
 
 ---
 
-🧨 **Handling Cascading Errors**  
-The system is state-dependent: one OCR mismatch can snowball and misalign future predictions.  
-- This taught me to design with fault tolerance in mind — adding safe defaults, user intervention options, and understanding how to gracefully handle imperfect data.
-
-   ![](writeup-assets/UserIntervention.gif)
+🧨 **Designing for Fault Tolerance in State-Driven Systems**  
+In systems where each decision depends on prior observations, a single misread can lead to cascading errors.  
+- This taught me the importance of designing with uncertainty in mind: introducing fallback strategies, confidence thresholds, and manual override options.  
+- Robustness came not from perfect inputs, but from resilient architecture that assumed mistakes would happen — and provided the user methods to adjust accordingly.
+  
+   ![](writeup-assets/UserIntervention.gif)  
+   **Manual error correction example, opponent history updates automatically.*
 
