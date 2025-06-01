@@ -16,7 +16,7 @@ While players can theoretically predict matchups manually, doing so mid-game is 
  
 ### 🎯 Key Features  
 - Developed a custom OCR pipeline leveraging AutoHotKey’s `ImageSearch` to recognize multi-font player names
-- Dynamically define tight search regions to optimize `ImageSearch` for real-time analysis and predictions
+- Dynamically define tight search regions to optimize `ImageSearch` calls for real-time analysis and predictions
 - Implemented a dynamic overlay to display next-round opponents in real-time   
 - Designed logic to adapt to player deaths and lobby sorting rules
 
@@ -24,7 +24,8 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 &nbsp;
 # 🧠 Implementation Overview
 
-🖼️ **Custom OCR System in AHK**
+🖼️ **Custom OCR System in AHK**  
+
 AHK lacks built-in OCR. So I made one myself:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Uses AHK's `ImageSearch` to detect character images within specific screen regions, making use of UI anchors to minimize the search area.
@@ -171,7 +172,9 @@ Only detects A–Z, a–z, and 0–9.
 ---
 
 🐣 **Legacy Codebase**  
-Built during the earliest stages of my programming career. While the logic is solid, the code lacks polish.  
+Built during the earliest stages of my programming career.  
+- While the logic is solid, the code lacks polish.
+
 However, the underlying design demonstrates core competencies:
   - Reverse engineering and automation skills
   - End-user perspective UI parsing without APIs
