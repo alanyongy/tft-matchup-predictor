@@ -2,6 +2,8 @@
 ![](writeup-assets/ScriptOverlay.png)
 A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system.
 
+*Notably, Riot Games introduced official support for this opponent prediction feature shortly after this tool’s release — mirroring its core functionality, validating the accuracy of its predictions.*
+
 ---
 
 ### 🔧 Background
@@ -13,43 +15,46 @@ While players can theoretically predict matchups manually, doing so mid-game is 
 ---
  
 ### 🎯 Key Features  
-- Developed a custom OCR pipeline leveraging AutoHotKey’s `ImageSearch` to recognize multi-font player names in real-time.
-- Implemented a dynamic overlay to display next-round opponents in real-time  
-- Built an automatic calibration system using fixed on-screen UI anchors  
-- Designed logic to adapt to player deaths and lobby sorting rules
+- **OCR using AHK:** Custom OCR pipeline leveraging AutoHotKey’s `ImageSearch`
+- Logic to adapt to player deaths and lobby sorting rules  
+- Dynamic overlay to display next-round opponents in real-time  
+
 
 &nbsp;
 # 🧠 Implementation Overview
-🖼️ **Custom OCR System**
 
-AHK lacks built-in OCR. So I made one myself:
-- Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Uses AHK's `ImageSearch` to detect character images within specific screen regions, making use of UI anchors to minimize the search area. 
-- Reconstructs strings by parsing image matches, then uses them to match the current opponent to their listing in the sidebar.
+🖼️ **Custom OCR System in AHK**
+- Implemented in AHK (which has no native OCR) using `ImageSearch` for real-time character recognition
+- Created a database of all alphanumerics (A–Z, a–z, 1–9) for the two in-game fonts.
+- Uses fixed UI elements to dynamically define tight search regions to accelerate `ImageSearch` calls
+- Reconstructs names in a consistent manner across fonts, using rules to handle ambiguity
+
+<sub>*Full details in [Section 1](#1-reading-the-player-list) of the technical breakdown below.*</sub>
+
 ---
 
 🎯 **Matchup Prediction Logic**
-- Implements the internal TFT matchmaking rules manually.
-- Accounts for edge cases: odd lobby counts, dead players, and rules that prevent facing the same player too many times in a row.
-- Tracks previous rounds to exclude recent opponents, uses that data to compute eligible future opponents.
+- Replicates TFT’s internal matchmaking rules to identify potential opponents each round.
+- Incorporates rule exceptions for odd player counts, eliminated players, and repeat prevention.
+- Maintains round history to compute eligible matchups and exclude recent opponents.  
+
+<sub>*Full details in [Section 2](#2-indicating-possible-matchups) of the technical breakdown below.*</sub>
+
 ---
 
 💻 **Overlay Rendering**
-- Actively scans the sidebar using OCR to locate where each viable opponent is listed.
-- Draws indicators over valid opponent icons using AHK GUI elements, updating automatically with new information.
----
-
-📌 **Screen Calibration**
-- Uses indicator UI elements to dynamically define screen regions for 'ImageSearch' scans, minimizing search time and optimizing character recognition speed.
-
+- Continuously interprets sidebar contents via the OCR system to determine current opponent positions.
+- Renders visual indicators atop viable opponents using AHK GUI primitives.
+- Updates dynamically in response to UI changes, ensuring accurate and timely display.
+  
 &nbsp;
-# 📚 Technical Writeup (the interesting part!)
+# 📚 Technical Breakdown
 
 ### 1. Reading the Player List
 
 *Generating the initial list of players, and keeping track of their location on the in-game sidebar.*
 > <details>
-> <summary>Click to Expand (seriously, do it)</summary>
+> <summary>Click to Expand</summary>
 >
 > ## Step 1: Locating Anchor Image  
 > Search the right-edge of the screen for the following image:  
@@ -92,7 +97,7 @@ AHK lacks built-in OCR. So I made one myself:
 >
 > The same rules are applied to the OCR process used to detect the current opponent to keep consistency.  
 > ![](writeup-assets/PlayersSidebarList.png) ![](writeup-assets/InternalPlayerList.png)  
-> `Demon` *becomes* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
+> *For example,* `Demon` *becomes* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
 > </details>
 
 ### 2. Indicating Possible Matchups
@@ -180,7 +185,7 @@ Optimizing for both speed and precision revealed the core challenge of real-time
 
 ---
 
-🔍 **Treating the UI as Ground Truth**  
+🔍 **Treating the UI as a Data Source**  
 Lacking any backend or telemetry access, I had to reconstruct system state purely from on-screen visuals.  
 - This forced me to treat the UI as the sole observable layer and reverse-engineer internal logic based on visual cues alone.  
 - It highlighted the importance of modeling imperfect, user-facing interfaces as data sources — and the assumptions and errors that can follow.
