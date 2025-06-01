@@ -1,22 +1,22 @@
-# 📊 TFT Matchup Predictor (2021)
+# 📊 Real-Time Opponent Predictor for Teamfight Tactics (2021)
 ![](writeup-assets/ScriptOverlay.png)
-A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in *Teamfight Tactics* by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system. Used personally in high-ranked matches until *Riot Games* implemented the same feature in-game.
+A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system.
 
 ---
 
 ### 🔧 Background
-*Teamfight Tactics* pits 8 players in ongoing 1v1 rounds, where each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on valid upcoming opponents.
+*Teamfight Tactics* pits 8 players in ongoing 1v1 rounds, where each matchup is randomly drawn from a deterministic subset of opponents. This tool identifies that subset and overlays a visual indicator on the corresponding opponents.
 
 **Why it matters:**  
-While players can theoretically predict matchups manually, doing so mid-game is time consuming, error-prone, and impractical. Automating this process allows the player to focus on their gameplay, and enables strategically positioning for the boards they're matching up against.
+While players can theoretically predict matchups manually, doing so mid-game is time consuming, error-prone, and impractical. Automating this process allows the player to focus on other aspects of gameplay, as well as enables strategically positioning for the opponents they're matching up against.
 
 ---
  
 ### 🎯 Key Features  
-- Custom OCR implementation via AHK’s `ImageSearch` for multi-font name detection
-- Dynamic overlay showing next-round opponents in real‐time  
-- Automatic calibration using fixed on-screen UI anchors
-- Adaptation to player deaths and lobby sorting rules
+- Developed a custom OCR pipeline leveraging AutoHotKey’s `ImageSearch` to recognize multi-font player names in real-time.
+- Implemented a dynamic overlay to display next-round opponents in real-time  
+- Built an automatic calibration system using fixed on-screen UI anchors  
+- Designed logic to adapt to player deaths and lobby sorting rules in real-time
 
 &nbsp;
 # 🧠 Implementation Overview
@@ -143,7 +143,7 @@ AHK lacks built-in OCR. So I made one myself:
 
 - Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
 - Improved ability to make use of positioning strategies and make gameplay decisions under pressure.
-- Eventually deprecated after *Riot Games* introduced the same feature natively — *mirroring this tool’s prediction logic identically*.
+- Eventually deprecated after *Riot Games* introduced the same feature natively — *mirroring this tool’s predictions identically*.
 
 *Real-time updating of visual indicators in response to players changing positions in the UI:*  
 ![](writeup-assets/LiveTracking.gif)  
@@ -152,7 +152,7 @@ AHK lacks built-in OCR. So I made one myself:
 &nbsp;
 # 🧹 Caveats
 🖼 **Static Image Detection**  
-Uses fixed image references for anchors and OCR — any visual UI change can break functionality.
+Uses pre-defined image references for anchors and OCR — any visual UI change needs a manual update to restore functionality.
 
 ---
 
