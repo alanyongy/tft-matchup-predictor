@@ -12,7 +12,7 @@ This tool identifies that subset and overlays a visual indicator on the correspo
 
 **Why it matters:**  
 While players can theoretically predict matchups manually, doing so mid-game is time consuming, error-prone, and impractical.  
-Automating this process allows the player to focus on other aspects of gameplay, while enabling the ability to strategically position for the opponents they're matching up against.
+Automating this process puts the player in prime position to strategically position for the opponents they're matching up against.
 
 ---
  
