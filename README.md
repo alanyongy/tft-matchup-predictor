@@ -58,20 +58,22 @@ AHK lacks built-in OCR. So I made one myself:
 ### 1. Reading the Player List
 
 *Generating the initial list of players, and keeping track of their location on the in-game sidebar.  
-<sup>Step by step walkthrough of the custom OCR process and crucial optimizations to achieve real-time responsiveness.</sup>*
+<sup>A step-by-step breakdown of the custom OCR pipeline, with key optimizations to achieve real-time speed.</sup>*
 > <details>
 > <summary><strong>Click to Expand</strong></summary>
 >
 > ## Step 1: Locating Anchor Image  
-> Search the right-edge of the screen for the following image:  
+> First, we search the right-edge of the screen for the following image:  
 > ![](writeup-assets/PlayerTagAnchor.png) 
 >
-> This will be known as the "anchor", as it gives us an exact, consistent location relative to a player's name (in this case, the top-most one).  
+> This will be referred to as the "anchor", as it gives us an exact, consistent location relative to a player's name.  
+> *In this case, it will be just right of the top-most player's name, as `ImageSearch` scans left-to-right, top-to-bottom.*
 > ![](writeup-assets/PlayerTagAnchorExplanation.png)
 >
 > ## Step 2: Letter Matching  
-> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will search within.  
-> *This approach significant reduces the time required for search attempts by minimizing the search area.*
+> A small search area (where `ImageSearch` will search within) is created with an offset relative to the location where the anchor was found.  
+> *In this case, the area is created left of anchor — since the anchor is positioned right of the name.  
+> This approach significant reduces the time required for search attempts by minimizing the search area.*
 >
 > Within the search area, run `ImageSearch` on all pre-defined character images of the character set. (`a-z`, `A-Z`, `0-9`)  
 > After a character is found (or none are), the search area shifts left — more on success, as the found character occupies the region.
@@ -86,29 +88,29 @@ AHK lacks built-in OCR. So I made one myself:
 > 
 > ## Step 3: Finalization and Reinitializing  
 > When no letter is found repeatedly, the program terminates the loop, and reverses the string.  
-> ![](writeup-assets/ocr5.png) Terminate, Read: `nomeD` --> `Demon`  
+> ![](writeup-assets/ocr5.png) Read: `nomeD` --> `Demon`  
 > This is now the common name attributed to this player.
 >
 > We now need to search for the next anchor image, corresponding to the next player in the sidebar.  
 > The search area will be the right edge of the screen (as before), but now only starting below where the last anchor was found.  
 > ![](writeup-assets/AnchorSearchArea.png)
 >
-> Next: Repeat from Step 2, until all players in the lobby have been accounted for.
+> Next: Repeat from Step 2 — Letter matching in specified area relative to the new anchor — until all players have been accounted for.
 >
 > ## Final Result
 > Certain letters are ignored, as they are difficult to accurately detect and differentiate, for example `I/1/l`. 
 >
 > Duplicate letters are also discarded, in order to simplify the shifting of the search area.  
-> *Otherwise, thin characters such as `t` or `I` may be detected and recorded twice.*
+> *Otherwise, thin characters such as `t` or `I` may be detected and recorded multiple times.*
 >
 > The same rules are applied to the OCR process used to detect the current opponent to keep consistency.  
 > ![](writeup-assets/PlayersSidebarList.png) ![](writeup-assets/InternalPlayerList.png)  
-> *For example,* `Demon` *becomes* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
+> *For example,* `Demon` *is recorded as* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
 > </details>
 
 ### 2. Indicating Possible Matchups
 *Determining the possible opponents and displaying a visual indicator on them in real time.  
-<sup>Explains specific motivation behind implementing OCR and the matchmaking algorithm</sup>*
+<sup>Why OCR was necessary, and how the tool mirrors TFT’s internal matchmaking algorithm.</sup>*
 > <details>
 > <summary><strong>Click to Expand</strong></summary>
 >
@@ -119,7 +121,7 @@ AHK lacks built-in OCR. So I made one myself:
 > This is determined by checking if their health is not `0`, which is indicated by a failure of `ImageSearch` in matching of the following image right of the anchor:  
 > ![](writeup-assets/DeadPlayerIndicator.png)
 >
-> Conversely, the corresponding player is marked as dead and excluded from future matchup predictions if the image is found.
+> Conversely, if this image is found, the corresponding player is marked as dead and excluded from future matchup predictions.
 > 
 > ## Step 2: Update Match History
 >
@@ -131,7 +133,7 @@ AHK lacks built-in OCR. So I made one myself:
 >
 > No need for reversal in this case, as the anchor is left of the name — the letters are detected left to right.  
 > ![](writeup-assets/CurrentOpponentExample.png)  
-> *The font for this text is different from the sidebar, and is the main motivation behind implementing OCR. If this were not the case, a well-positioned snapshot of each player name in the sidebar on initialization, followed with image matching such snapshots in this location would suffice in matching the current opponent to their location on the sidebar.*
+> *The font for this text is different from the sidebar (player list), and is the main motivation behind implementing OCR. If this were not the case, a well-positioned snapshot of each player name in the sidebar on initialization, followed with image matching such snapshots in this location would suffice in relating the current opponent to their listing on the sidebar.*
 >
 > These names are then recorded in a list of recently faced opponents.  
 >![](writeup-assets/OpponentHistory.png) 
