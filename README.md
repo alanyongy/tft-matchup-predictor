@@ -2,7 +2,7 @@
 ![](writeup-assets/ScriptOverlay.png)
 A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Teamfight Tactics by reading on-screen UI elements with a custom Optical Character Recognition (OCR) system.
 
-*Notably, Riot Games introduced official support for this opponent prediction feature shortly after this tool’s release — mirroring its core functionality, validating the accuracy of its predictions.*
+<sub>*Riot Games introduced official support for this opponent prediction feature shortly after this tool’s release — mirroring its core functionality, validating the accuracy of its predictions.*</sub>
 
 ---
 
