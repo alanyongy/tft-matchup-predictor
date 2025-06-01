@@ -30,9 +30,9 @@ Automating this process puts the player in prime position to strategically posit
 
 AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
-- Uses AHK's `ImageSearch` to detect character images within specific screen regions, making use of UI anchors to minimize the search area.
-- Uses fixed UI elements to dynamically define specific search regions to accelerate `ImageSearch` calls
-- Reconstructs strings by parsing character-level image matches, then uses them to match the current opponent to their listing in the sidebar.
+- Used AHK's `ImageSearch` to methodically detect character images within specific screen regions.
+- Made use of fixed UI elements to dynamically define and minimize search regions to accelerate `ImageSearch` calls.
+- Reconstructed player names by parsing character-level image matches, then used them to correspond opponents to their listing in the sidebar.
 
 <sub>*Full details in [Section 1](#1-reading-the-player-list) of the technical breakdown below.*</sub>
 
@@ -41,7 +41,7 @@ AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
 🎯 **Matchup Prediction Logic**
 - Replicates TFT’s internal matchmaking rules to identify potential opponents each round.
 - Accounts for edge cases: odd lobby counts, eliminated players, and rules that prevent facing the same player too many times in a row.
-- Maintains round history to compute eligible matchups and exclude recent opponents.  
+- Maintains matchup history to compute eligible future matchups and exclude recent opponents.  
 
 <sub>*Full details in [Section 2](#2-indicating-possible-matchups) of the technical breakdown below.*</sub>
 
