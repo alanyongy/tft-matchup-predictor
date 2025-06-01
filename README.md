@@ -11,7 +11,7 @@ A lightweight tool built in AutoHotKey (AHK) to predict upcoming opponents in Te
 
 **Why it matters:**  
 While players can theoretically predict matchups manually, doing so mid-game is time consuming, error-prone, and impractical.  
-Automating this process allows the player to focus on other aspects of gameplay, as well as enables strategically positioning for the opponents they're matching up against.
+Automating this process allows the player to focus on other aspects of gameplay, while enabling the ability to strategically position for the opponents they're matching up against.
 
 ---
  
