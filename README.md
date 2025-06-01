@@ -108,6 +108,7 @@ AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
 > *For example,* `Demon` *is recorded as* `Demob` *because of the prior occurence of* `n` *in* `Demon banisher`.
 > </details>
 
+&nbsp;
 ### 2. Indicating Possible Matchups
 *Determining the possible opponents and displaying a visual indicator on them in real time.  
 <sup>Why OCR was necessary, and how the tool mirrors TFT’s internal matchmaking algorithm.</sup>*
