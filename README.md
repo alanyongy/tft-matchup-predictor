@@ -158,7 +158,7 @@ AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
 
 - Used personally at Grandmaster+ ranks (top 0.1% of ranked playerbase) in real matches.
 - Improved ability to make use of positioning strategies and make gameplay decisions under pressure.
-- Eventually deprecated after *Riot Games* introduced the same feature natively — *mirroring this tool’s predictions identically*.
+- Eventually made redundant after *Riot Games* introduced the same feature natively — *mirroring this tool’s predictions identically*.
 
 *Real-time updating of visual indicators in response to players changing positions in the UI:*  
 ![](writeup-assets/LiveTracking.gif)  
