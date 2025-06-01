@@ -69,7 +69,7 @@ AHK lacks built-in OCR. So I made one myself:
 > ![](writeup-assets/PlayerTagAnchorExplanation.png)
 >
 > ## Step 2: Letter Matching  
-> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will search within. 
+> Using the location where the anchor image was found, a small search area is created where the `ImageSearch` will search within.  
 > *This approach significant reduces the time required for search attempts by minimizing the search area.*
 >
 > Within the search area, run `ImageSearch` on all pre-defined character images of the character set. (`a-z`, `A-Z`, `0-9`)  
