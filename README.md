@@ -28,7 +28,7 @@ Automating this process puts the player in prime position to strategically posit
 
 🖼️ **Custom OCR System in AHK**  
 
-AHK lacks built-in OCR capabilities. So, naturally, I made one myself:
+AHK lacks built-in OCR capabilities:
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Uses AHK's `ImageSearch` to methodically detect character images within specific screen regions.
 - Makes use of fixed UI elements to dynamically define and minimize search regions to accelerate `ImageSearch` calls.
