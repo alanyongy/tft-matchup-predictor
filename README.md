@@ -26,7 +26,7 @@ Automating this process puts the player in prime position to strategically posit
 &nbsp;
 # 🧠 Implementation Overview
 
-🖼️ **Custom OCR System in AHK**  
+**Custom OCR System in AHK**  
 <sub>Note: AHK lacks built-in OCR capabilities.</sub>
 - Manually created a database of individual character images (A–Z, a–z, 1-9) for both fonts used in TFT’s UI.
 - Uses AHK's `ImageSearch` to methodically detect character images within specific screen regions.
@@ -37,7 +37,7 @@ Automating this process puts the player in prime position to strategically posit
 
 ---
 
-🎯 **Matchup Prediction Logic**
+**Matchup Prediction Logic**
 - Replicates TFT’s internal matchmaking rules to identify potential opponents each round.
 - Accounts for edge cases: odd lobby counts, eliminated players, and rules that prevent facing the same player too many times in a row.
 - Maintains matchup history to compute eligible future matchups and exclude recent opponents.  
@@ -46,7 +46,7 @@ Automating this process puts the player in prime position to strategically posit
 
 ---
 
-💻 **Overlay Rendering**
+**Overlay Rendering**
 - Continuously interprets sidebar contents via the OCR system to determine current opponent positions.
 - Renders visual indicators atop viable opponents using AHK GUI primitives.
 - Updates dynamically in response to UI changes, ensuring accurate and timely display.
