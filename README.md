@@ -55,9 +55,8 @@ Automating this process puts the player in prime position to strategically posit
 # 📚 Technical Breakdown <sub><sup>(the interesting part!)</sup></sub>
 
 ### 1. Reading the Player List
-
-*Generating the initial list of players, and keeping track of their location on the in-game sidebar.  
-<sup>A step-by-step breakdown of the custom OCR pipeline, with key optimizations to achieve real-time speed.</sup>*
+Generating the initial list of players, and keeping track of their location on the in-game sidebar.
+*<sup>- A step-by-step breakdown of the custom OCR pipeline, with key optimizations to achieve real-time speed.</sup>*
 > <details>
 > <summary><strong>Click to Expand</strong></summary>
 >
@@ -109,8 +108,8 @@ Automating this process puts the player in prime position to strategically posit
 
 &nbsp;
 ### 2. Indicating Possible Matchups
-*Determining the possible opponents and displaying a visual indicator on them in real time.  
-<sup>Why OCR was necessary, and how the tool mirrors TFT’s internal matchmaking algorithm.</sup>*
+Determining the possible opponents and displaying a visual indicator on them in real time.  
+*<sup>- Why OCR was necessary, and how the tool mirrors TFT’s internal matchmaking algorithm.</sup>*
 > <details>
 > <summary><strong>Click to Expand</strong></summary>
 >
