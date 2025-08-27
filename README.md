@@ -188,7 +188,7 @@ However, the underlying design demonstrates core competencies:
   - Real-world impact in a competitive environment
 
 &nbsp;
-# 🧠 Lessons Learned
+# 📔 Lessons Learned
 ⌚ **Balancing Accuracy with Real-Time Constraints**  
 Optimizing for both speed and precision revealed the core challenge of real-time perception systems: small delays or inaccuracies can compound rapidly.  
 - Tuning OCR tolerances required balancing false positives against missed detections under time pressure.  
