@@ -165,19 +165,19 @@ Automating this process puts the player in prime position to strategically posit
 
 &nbsp;
 # 🧹 Caveats
-🖼 **Static Image Detection**  
+**Static Image Detection**  
 Uses pre-defined image references for anchors and OCR
 - Any visual UI change needs a manual update to restore functionality.
 
 ---
 
-🌐 **Limited Character Support**  
+**Limited Character Support**  
 Only detects A–Z, a–z, and 0–9.
 - Players with identical names (except for unsupported characters) may be indistinguishable.
 
 ---
 
-🐣 **Legacy Codebase**  
+**Legacy Codebase**  
 Built during the earliest stages of my programming career.  
 - While the logic is solid, the code lacks polish.
 
@@ -189,24 +189,24 @@ However, the underlying design demonstrates core competencies:
 
 &nbsp;
 # 📔 Lessons Learned
-⌚ **Balancing Accuracy with Real-Time Constraints**  
+**Balancing Accuracy with Real-Time Constraints**  
 Optimizing for both speed and precision revealed the core challenge of real-time perception systems: small delays or inaccuracies can compound rapidly.  
 - Tuning OCR tolerances required balancing false positives against missed detections under time pressure.  
 - Designing for speed meant simplifying recognition pipelines while ensuring correctness didn’t degrade — a recurring tension in time-critical AI.
 
 ---
 
-🔍 **Treating the UI as a Data Source**  
+**Treating the UI as a Data Source**  
 Lacking any backend or telemetry access, I had to reconstruct system state purely from on-screen visuals.  
 - This forced me to treat the UI as the sole observable layer and reverse-engineer internal logic based on visual cues alone.  
 - It highlighted the importance of modeling imperfect, user-facing interfaces as data sources — and the assumptions and errors that can follow.
 
 ---
 
-🧨 **Designing for Fault Tolerance in State-Driven Systems**  
+**Designing for Fault Tolerance in State-Driven Systems**  
 In systems where each decision depends on prior observations, a single misread can lead to cascading errors.  
 - This taught me the importance of designing with uncertainty in mind: introducing fallback strategies, confidence thresholds, and manual override options.  
 - Robustness came not from perfect inputs, but from resilient architecture that assumed mistakes would happen — and provided the user methods to adjust accordingly.
   
    ![](writeup-assets/UserIntervention.gif)  
-   **Manual error correction example, opponent history updates automatically.*
+   **Implementation of manual error correction of automatically generated opponent history used for prediction.*
